@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Anniversaire Jordane!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #fbbf24;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #fbbf24; }
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: #ff4081;
+            border-radius: 50%;
+            box-shadow: inset -5px -5px 8px rgba(0,0,0,0.2);
+            animation: float 15s ease-in-out infinite;
+        }
+        
+        .balloon:before {
+            content: "";
+            position: absolute;
+            width: 3px;
+            height: 6px;
+            background: #ff4081;
+            top: 30px;
+            left: 8px;
+        }
+        
+        .balloon:after {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 10px;
+            background: #bdbdbd;
+            top: 36px;
+            left: 9px;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-80px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px) rotate(2deg);
+            box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.1), 0 5px 5px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .modal {
+            transition: all 0.3s ease-out;
+            transform: translateY(-100vh);
+        }
+        
+        .modal.active {
+            transform: translateY(0);
+        }
+        
+        .icon-hover:hover {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.7));
+        }
+        
+        .music-toggle {
+            transition: all 0.3s ease;
+        }
+        
+        .music-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .typewriter {
+                white-space: normal;
+                border-right: none;
+                animation: none;
+                font-size: 1.8rem;
+            }
+            
+            .balloon {
+                width: 15px;
+                height: 22px;
+            }
+            
+            .balloon:before {
+                top: 22px;
+                left: 6px;
+            }
+            
+            .balloon:after {
+                top: 28px;
+                left: 7px;
+                height: 8px;
+            }
+            
+            #gift-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .modal-content {
+                padding: 1rem;
+            }
+            
+            .grid-cols-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-purple-900 to-blue-900 min-h-screen overflow-x-hidden relative font-['Poppins']">
+    <!-- Background elements -->
+    <div id="stars-container"></div>
+    <div id="balloons-container"></div>
+
+    <!-- Music toggle -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="music-toggle" class="music-toggle bg-yellow-400 text-purple-900 p-2 rounded-full shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.728-2.728" />
+            </svg>
+        </button>
+        <audio id="bg-music" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Main content -->
+    <div class="container mx-auto px-4 py-8 md:py-12 flex flex-col items-center justify-center min-h-screen animate__animated animate__fadeIn">
+        <div class="text-center mb-8 md:mb-12 px-2">
+            <h1 class="typewriter text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-yellow-400 mb-4 font-['Dancing_Script']">
+                🎉 Joyeux Anniversaire à Jordane Luemba Mbedika! 🎂
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-white animate__animated animate__fadeIn animate__delay-3s">
+                Né le 18 juillet - Une journée spéciale pour une personne exceptionnelle!
+            </p>
+        </div>
+
+        <!-- Celebration cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 w-full max-w-6xl px-4">
+            <div class="card-hover bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-4 md:p-6 shadow-xl transition-all duration-300 transform hover:rotate-1 animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="text-yellow-400 text-3xl md:text-4xl mb-3 md:mb-4">🌟</div>
+                <h3 class="text-lg md:text-xl font-semibold text-white mb-1 md:mb-2">Un leader inspirant</h3>
+                <p class="text-sm md:text-base text-gray-200">Ton leadership naturel inspire tous ceux qui ont la chance de te connaître.</p>
+            </div>
+            <div class="card-hover bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-4 md:p-6 shadow-xl transition-all duration-300 transform hover:-rotate-1 animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="text-yellow-400 text-3xl md:text-4xl mb-3 md:mb-4">❤️</div>
+                <h3 class="text-lg md:text-xl font-semibold text-white mb-1 md:mb-2">Toujours là pour les autres</h3>
+                <p class="text-sm md:text-base text-gray-200">Ton cœur généreux et ta disponibilité font de toi une personne rare.</p>
+            </div>
+            <div class="card-hover bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-4 md:p-6 shadow-xl transition-all duration-300 transform hover:rotate-1 animate__animated animate__fadeInUp animate__delay-3s">
+                <div class="text-yellow-400 text-3xl md:text-4xl mb-3 md:mb-4">✨</div>
+                <h3 class="text-lg md:text-xl font-semibold text-white mb-1 md:mb-2">Une énergie contagieuse</h3>
+                <p class="text-sm md:text-base text-gray-200">Ta joie de vivre et ton enthousiasme illuminent chaque journée.</p>
+            </div>
+        </div>
+
+        <!-- Gift button -->
+        <button id="gift-btn" class="bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-3 px-6 md:py-4 md:px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 animate__animated animate__bounceIn animate__delay-4s flex items-center text-sm md:text-base">
+            <span class="mr-2">👉</span> Faire un cadeau 🎁
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div id="gift-modal" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+        <div class="bg-gradient-to-br from-purple-800 to-blue-900 rounded-xl p-6 md:p-8 max-w-md w-full relative animate__animated animate__zoomIn">
+            <button id="close-modal" class="absolute top-3 right-3 md:top-4 md:right-4 text-white hover:text-yellow-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-xl md:text-2xl font-bold text-yellow-400 mb-4 md:mb-6 text-center">Comment souhaitez-vous célébrer Jordane?</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6">
+                <div class="flex flex-col items-center">
+                    <button class="icon-hover bg-white bg-opacity-20 rounded-full p-3 md:p-4 mb-1 md:mb-2 transition-all duration-300">
+                        <span class="text-2xl md:text-3xl">💸</span>
+                    </button>
+                    <span class="text-white text-xs md:text-sm">Mobile Money</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <button class="icon-hover bg-white bg-opacity-20 rounded-full p-3 md:p-4 mb-1 md:mb-2 transition-all duration-300">
+                        <span class="text-2xl md:text-3xl">🎁</span>
+                    </button>
+                    <span class="text-white text-xs md:text-sm">Cadeau</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <button class="icon-hover bg-white bg-opacity-20 rounded-full p-3 md:p-4 mb-1 md:mb-2 transition-all duration-300">
+                        <span class="text-2xl md:text-3xl">📞</span>
+                    </button>
+                    <span class="text-white text-xs md:text-sm">Appel</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <button class="icon-hover bg-white bg-opacity-20 rounded-full p-3 md:p-4 mb-1 md:mb-2 transition-all duration-300">
+                        <span class="text-2xl md:text-3xl">💬</span>
+                    </button>
+                    <span class="text-white text-xs md:text-sm">Message</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <button class="icon-hover bg-white bg-opacity-20 rounded-full p-3 md:p-4 mb-1 md:mb-2 transition-all duration-300">
+                        <span class="text-2xl md:text-3xl">📷</span>
+                    </button>
+                    <span class="text-white text-xs md:text-sm">Photo</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <button class="icon-hover bg-white bg-opacity-20 rounded-full p-3 md:p-4 mb-1 md:mb-2 transition-all duration-300">
+                        <span class="text-2xl md:text-3xl">📍</span>
+                    </button>
+                    <span class="text-white text-xs md:text-sm">Localisation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create stars
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = window.innerWidth < 640 ? 50 : 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = Math.random() * (window.innerWidth < 640 ? 2 : 3) + 1;
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                container.appendChild(star);
+            }
+        }
+
+        // Create balloons
+        function createBalloons() {
+            const container = document.getElementById('balloons-container');
+            const balloonCount = window.innerWidth < 640 ? 10 : 15;
+            const colors = ['#ff4081', '#4fc3f7', '#ffeb3b', '#4caf50', '#e91e63'];
+            
+            for (let i = 0; i < balloonCount; i++) {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                
+                // Random properties
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = 10 + Math.random() * 20;
+                
+                balloon.style.left = `${left}%`;
+                balloon.style.background = color;
+                balloon.style.animationDelay = `${delay}s`;
+                balloon.style.animationDuration = `${duration}s`;
+                balloon.style.setProperty('--tw-bg-opacity', '0.7');
+                container.appendChild(balloon);
+            }
+        }
+
+        // Modal functionality
+        function setupModal() {
+            const modal = document.getElementById('gift-modal');
+            const openBtn = document.getElementById('gift-btn');
+            const closeBtn = document.getElementById('close-modal');
+            
+            openBtn.addEventListener('click', () => {
+                modal.classList.add('active');
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+            
+            // Close when clicking outside modal
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+
+        // Music toggle
+        function setupMusic() {
+            const music = document.getElementById('bg-music');
+            const toggleBtn = document.getElementById('music-toggle');
+            let isPlaying = false;
+            
+            // Try to autoplay (may not work due to browser policies)
+            const promise = music.play();
+            if (promise !== undefined) {
+                promise.catch(error => {
+                    // Autoplay prevented
+                    toggleBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.728-2.728" />
+                        </svg>
+                    `;
+                }).then(() => {
+                    // Autoplay worked
+                    isPlaying = true;
+                    toggleBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clip-rule="evenodd" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                        </svg>
+                    `;
+                });
+            }
+            
+            toggleBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    music.pause();
+                    toggleBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.728-2.728" />
+                        </svg>
+                    `;
+                } else {
+                    music.play();
+                    toggleBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clip-rule="evenodd" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                        </svg>
+                    `;
+                }
+                isPlaying = !isPlaying;
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createBalloons();
+            setupModal();
+            setupMusic();
+            
+            // Trigger confetti after page loads
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    spread: 90,
+                    origin: { y: 0.6 }
+                });
+            }, 2000);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            document.getElementById('stars-container').innerHTML = '';
+            document.getElementById('balloons-container').innerHTML = '';
+            createStars();
+            createBalloons();
+        });
+    </script>
+</body>
+</html>
