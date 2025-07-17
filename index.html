@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Jordane!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+            --accent: #f59e0b;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .title-font {
+            font-family: 'Pacifico', cursive;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .twinkle {
+            animation: twinkle 1.5s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            from { opacity: 0.3; }
+            to { opacity: 1; }
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid var(--accent);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent) }
+        }
+        
+        .modal {
+            transition: all 0.3s ease;
+        }
+        
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        
+        .modal-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 300ms, transform 300ms;
+        }
+        
+        .modal-exit {
+            opacity: 1;
+        }
+        
+        .modal-exit-active {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 300ms, transform 300ms;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .gift-icon:hover {
+            transform: translateY(-5px) rotate(10deg);
+        }
+        
+        .rotate-3d {
+            animation: rotate3d 8s infinite linear;
+        }
+        
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        .wave {
+            animation: wave 3s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .star {
+            animation: twinkle 2s infinite alternate;
+            animation-delay: calc(var(--delay) * 0.2s);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white relative overflow-hidden">
+    <!-- Particles Background -->
+    <div id="particles-js" class="absolute w-full h-full"></div>
+    
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-12 relative z-10">
+        <!-- Hero Section -->
+        <section class="text-center py-12 md:py-20">
+            <h1 id="birthday-title" class="title-font text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600">
+                Happy Birthday Jordane LUEMBA !
+            </h1>
+            
+            <div class="pulse inline-block">
+                <div id="date-container" class="text-2xl md:text-3xl bg-white bg-opacity-20 rounded-full px-6 py-3 inline-flex items-center cursor-pointer">
+                    <span class="mr-2">🎉</span>
+                    <span>18 Juillet</span>
+                    <span class="ml-2">🎉</span>
+                </div>
+            </div>
+            
+            <div id="secret-message" class="hidden mt-4 text-yellow-300 font-bold text-xl">
+                Tu es génial !
+            </div>
+        </section>
+        
+        <!-- Personalized Section -->
+        <section class="flex flex-col lg:flex-row items-center justify-center gap-12 my-20">
+            <div class="relative w-64 h-64 md:w-80 md:h-80">
+                <div class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full blur-xl opacity-50"></div>
+                <div class="rotate-3d floating relative w-full h-full rounded-full overflow-hidden border-4 border-white border-opacity-30 shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" 
+                         alt="Jordane" 
+                         class="w-full h-full object-cover">
+                </div>
+            </div>
+            
+            <div class="max-w-md text-center lg:text-left">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Jordane Luemba Mbedika</h2>
+                <p class="text-lg mb-4">
+                    Une personne extraordinaire née le 
+                    <span class="font-bold text-yellow-300">18 juillet</span>.
+                </p>
+                <div class="typewriter text-xl font-semibold h-8 mb-6">
+                    <span id="adjective" class="inline-block">Créatif</span>
+                </div>
+                <p class="text-lg opacity-90">
+                    Ton sourire illumine chaque pièce, ta générosité inspire tous ceux qui te connaissent, et ton esprit créatif rend chaque jour spécial.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Celebration Section -->
+        <section class="my-20 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">Célébrons cette journée spéciale !</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 hover:bg-opacity-20 transition-all cursor-pointer" onclick="confettiAnimation()">
+                    <div class="text-4xl mb-3">🎉</div>
+                    <h3 class="font-bold">Confettis</h3>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 hover:bg-opacity-20 transition-all cursor-pointer" onclick="playMusic()">
+                    <div class="text-4xl mb-3">🎵</div>
+                    <h3 class="font-bold">Musique</h3>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 hover:bg-opacity-20 transition-all cursor-pointer" onclick="showCake()">
+                    <div class="text-4xl mb-3">🎂</div>
+                    <h3 class="font-bold">Gâteau</h3>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 hover:bg-opacity-20 transition-all cursor-pointer" onclick="openGiftModal()">
+                    <div class="text-4xl mb-3">🎁</div>
+                    <h3 class="font-bold">Cadeaux</h3>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 hover:bg-opacity-20 transition-all cursor-pointer" onclick="showMessage()">
+                    <div class="text-4xl mb-3">💌</div>
+                    <h3 class="font-bold">Message</h3>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 hover:bg-opacity-20 transition-all cursor-pointer" onclick="showPhoto()">
+                    <div class="text-4xl mb-3">📸</div>
+                    <h3 class="font-bold">Photos</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Gift Button -->
+    <button id="gift-button" onclick="openGiftModal()" class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center z-50">
+        <span class="mr-2">Faire un cadeau</span>
+        <span>🎁</span>
+    </button>
+    
+    <!-- Gift Modal -->
+    <div id="gift-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gradient-to-br from-purple-900 to-pink-800 rounded-xl p-8 max-w-md w-full mx-4 relative overflow-hidden">
+            <div id="modal-particles"></div>
+            <button onclick="closeGiftModal()" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold mb-6 text-center">Choisis ton cadeau</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="gift-icon bg-white bg-opacity-10 rounded-lg p-4 text-center cursor-pointer hover:bg-opacity-20 transition-all" onclick="window.open('https://paypal.com', '_blank')">
+                    <div class="text-3xl mb-2">💰</div>
+                    <p class="text-sm">Envoyer de l'argent</p>
+                </div>
+                <div class="gift-icon bg-white bg-opacity-10 rounded-lg p-4 text-center cursor-pointer hover:bg-opacity-20 transition-all" onclick="window.open('https://amazon.fr', '_blank')">
+                    <div class="text-3xl mb-2">🎁</div>
+                    <p class="text-sm">Liste de souhaits</p>
+                </div>
+                <div class="gift-icon bg-white bg-opacity-10 rounded-lg p-4 text-center cursor-pointer hover:bg-opacity-20 transition-all" onclick="window.open('tel:+1234567890')">
+                    <div class="text-3xl mb-2">☎️</div>
+                    <p class="text-sm">Appel</p>
+                </div>
+                <div class="gift-icon bg-white bg-opacity-10 rounded-lg p-4 text-center cursor-pointer hover:bg-opacity-20 transition-all" onclick="window.open('mailto:jordane@example.com')">
+                    <div class="text-3xl mb-2">✉️</div>
+                    <p class="text-sm">Message</p>
+                </div>
+                <div class="gift-icon bg-white bg-opacity-10 rounded-lg p-4 text-center cursor-pointer hover:bg-opacity-20 transition-all" onclick="confettiAnimation()">
+                    <div class="text-3xl mb-2">🎂</div>
+                    <p class="text-sm">Gâteau Virtuel</p>
+                </div>
+                <div class="gift-icon bg-white bg-opacity-10 rounded-lg p-4 text-center cursor-pointer hover:bg-opacity-20 transition-all" onclick="playMusic()">
+                    <div class="text-3xl mb-2">🎶</div>
+                    <p class="text-sm">Musique</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cake Modal -->
+    <div id="cake-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gradient-to-br from-yellow-200 to-pink-300 rounded-xl p-8 max-w-sm w-full mx-4 relative text-center">
+            <button onclick="closeCakeModal()" class="absolute top-4 right-4 text-gray-800 text-2xl">&times;</button>
+            <div class="text-6xl mb-4">🎂</div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Bon Anniversaire Jordane !</h3>
+            <p class="text-gray-700 mb-6">Souffle les bougies !</p>
+            <button onclick="blowCandles()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full transition-all">
+                Souffler
+            </button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="py-8 text-center relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-full h-20 overflow-hidden">
+            <div class="wave absolute bottom-0 left-0 w-[200%] h-full bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-purple-500/20"></div>
+        </div>
+        
+        <div class="relative z-10">
+            <div class="flex justify-center space-x-1 mb-4">
+                <span class="star text-xl" style="--delay:1">★</span>
+                <span class="star text-xl" style="--delay:2">★</span>
+                <span class="star text-xl" style="--delay:3">★</span>
+                <span class="star text-xl" style="--delay:4">★</span>
+                <span class="star text-xl" style="--delay:5">★</span>
+            </div>
+            <p class="text-lg font-semibold">Merci pour votre amour !  ❤️</p>
+            <p class="mt-2 opacity-80">© 2023 - Joyeux Anniversaire Jordane</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Typewriter effect for adjectives
+        const adjectives = ["Créatif", "Généreux", "Unique", "Extraordinaire", "Magnifique"];
+        let currentAdjIndex = 0;
+        
+        function changeAdjective() {
+            const adjectiveElement = document.getElementById('adjective');
+            adjectiveElement.style.animation = 'none';
+            void adjectiveElement.offsetWidth; // Trigger reflow
+            adjectiveElement.style.animation = null;
+            
+            currentAdjIndex = (currentAdjIndex + 1) % adjectives.length;
+            adjectiveElement.textContent = adjectives[currentAdjIndex];
+        }
+        
+        setInterval(changeAdjective, 3000);
+        
+        // Confetti animation
+        function confettiAnimation() {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+        
+        // Gift modal functions
+        function openGiftModal() {
+            document.getElementById('gift-modal').classList.remove('hidden');
+            createModalParticles();
+        }
+        
+        function closeGiftModal() {
+            document.getElementById('gift-modal').classList.add('hidden');
+            clearModalParticles();
+        }
+        
+        // Cake modal functions
+        function showCake() {
+            document.getElementById('cake-modal').classList.remove('hidden');
+        }
+        
+        function closeCakeModal() {
+            document.getElementById('cake-modal').classList.add('hidden');
+        }
+        
+        function blowCandles() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff0000', '#ffff00', '#ffffff']
+            });
+            setTimeout(closeCakeModal, 1000);
+        }
+        
+        // Other interactive functions
+        function playMusic() {
+            alert("Joyeux Anniversaire Jordane ! ");
+            // In a real implementation, you would embed an audio player here
+        }
+        
+        function showMessage() {
+            alert("Tu es une personne incroyable Jordane ! Passe une merveilleuse journée remplie de joie et de bonheur.  💌");
+        }
+        
+        function showPhoto() {
+            alert("Voici un souvenir spécial pour toi Jordane ! 📸");
+            // In a real implementation, you would show a photo gallery
+        }
+        
+        // Easter egg - click date 3 times
+        let clickCount = 0;
+        document.getElementById('date-container').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount >= 3) {
+                document.getElementById('secret-message').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('secret-message').classList.add('hidden');
+                }, 3000);
+                clickCount = 0;
+            }
+        });
+        
+        // Create particles for modal background
+        function createModalParticles() {
+            const container = document.getElementById('modal-particles');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                const color = `hsl(${Math.random() * 60 + 270}, 80%, 70%)`;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.backgroundColor = color;
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        function clearModalParticles() {
+            document.getElementById('modal-particles').innerHTML = '';
+        }
+        
+        // Simple particles for background
+        function createBackgroundParticles() {
+            const container = document.body;
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 4 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 15 + 10;
+                const opacity = Math.random() * 0.5 + 0.1;
+                const color = `rgba(255, 255, 255, ${opacity})`;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.backgroundColor = color;
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createBackgroundParticles();
+            
+            // Trigger initial confetti
+            setTimeout(confettiAnimation, 1000);
+            
+            // Animate title letters
+            const title = document.getElementById('birthday-title');
+            title.innerHTML = title.textContent.split('').map(letter => 
+                `<span class="inline-block" style="animation: bounce 0.5s ease ${Math.random() * 0.5}s both">${letter}</span>`
+            ).join('');
+        });
+    </script>
+</body>
+</html>
